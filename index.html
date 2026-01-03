@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Reader - Napoleon and the Pope</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gradient-to-b from-slate-50 to-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-slate-800 mb-2">The Emperor and the Pope</h1>
+            <p class="text-lg text-slate-600">An AI-Narrated Historical Account</p>
+        </header>
+
+        <!-- Voice Controls -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex gap-3">
+                    <button id="playBtn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                        </svg>
+                        Play
+                    </button>
+                    <button id="pauseBtn" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2 hidden">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z"/>
+                        </svg>
+                        Pause
+                    </button>
+                    <button id="stopBtn" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 3.5A1.5 1.5 0 016.5 2h7A1.5 1.5 0 0115 3.5v13a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 015 16.5v-13z"/>
+                        </svg>
+                        Stop
+                    </button>
+                </div>
+                
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-slate-700">Voice:</label>
+                    <select id="voiceSelect" class="border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option>Loading voices...</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-slate-700">Speed:</label>
+                    <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1" class="w-32">
+                    <span id="rateValue" class="text-sm text-center text-slate-600">1.0x</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mt-6">
+                <div class="bg-slate-200 rounded-full h-2 overflow-hidden">
+                    <div id="progressBar" class="bg-emerald-500 h-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-sm text-slate-600">
+                    <span id="currentSection">Not started</span>
+                    <span id="totalSections"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <div id="textContent" class="prose prose-lg max-w-none">
+                <div class="section" data-section="1">
+                    <p class="text-slate-700 leading-relaxed mb-4">In 1809, the most powerful man in Europe did something almost unthinkable. He sent soldiers into a palace at night, seized an elderly priest in white robes, and carried him away into captivity.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">That priest was the Pope. And the man who ordered his arrest was Napoleon Bonaparte.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6 font-semibold">This is the story of how an emperor tried to bend the Church to his will—and failed.</p>
+                </div>
+
+                <div class="section" data-section="2">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Background</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">To understand why this happened, we must go back to the aftermath of the French Revolution.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">The Revolution had devastated the Catholic Church in France. Church lands were confiscated, monasteries dissolved, and thousands of priests were imprisoned, exiled, or executed. The old alliance between throne and altar had collapsed, and relations with Rome were broken entirely.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">When Napoleon rose to power, he was not a religious man in any deep sense. But he was intensely pragmatic.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">He understood something crucial: a nation at war with its own religion could never be stable.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">That is why, in 1801, Napoleon—then First Consul—reached an agreement with Pope Pius VII known as the Concordat of 1801.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">The Concordat restored Catholic worship in France, recognized Catholicism as the religion of the majority, and allowed churches to reopen. In return, the Pope accepted that bishops would be nominated by the French state and that confiscated Church lands would not be returned.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">It was a compromise—uneasy, imperfect, but effective. For a time, Church and state coexisted in cautious cooperation.</p>
+                </div>
+
+                <div class="section" data-section="3">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Imperial Turn</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">Everything changed when Napoleon crowned himself Emperor in 1804.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">With the imperial crown came imperial expectations. Napoleon no longer wanted cooperation—he wanted obedience.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">He increasingly interfered in Church affairs, delaying or blocking episcopal appointments unless bishops swore loyalty to him. He treated Church officials as civil servants of the state, not shepherds of souls.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Napoleon also expected the Pope to support his political and military ambitions, especially his economic war against Britain—the Continental System.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">The Papal States, which stretched across central Italy, were strategically important. Napoleon demanded that they join his blockade of Britain.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Pius VII refused.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Not because he loved Britain—but because he believed the Church must remain politically neutral and spiritually independent.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">This refusal marked the beginning of open conflict.</p>
+                </div>
+
+                <div class="section" data-section="4">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Escalation</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">In 1808, French troops marched into Rome.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">A year later, in 1809, Napoleon went further. He formally annexed the Papal States to the French Empire, declaring that the Pope's temporal rule was finished.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">For centuries, popes had ruled territory not for power, but to guarantee their independence from kings and emperors. Now that independence was gone.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">In response, Pius VII issued a papal bull called Quum memoranda. It excommunicated those responsible for violating the sovereignty of the Church.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Napoleon was not named directly—but everyone understood who it was aimed at.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">The die was cast.</p>
+                </div>
+
+                <div class="section" data-section="5">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Arrest</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">On the night of July 5th to 6th, 1809, French soldiers entered the Quirinal Palace in Rome.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">They confronted the Pope and demanded that he renounce his claims to sovereignty.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Pius VII refused.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Calmly, quietly, he accepted arrest rather than submission.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">He was taken from Rome under cover of darkness—an aging man, separated from his advisors, uncertain if he would ever return.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">It was one of the most dramatic arrests in Church history.</p>
+                </div>
+
+                <div class="section" data-section="6">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Captivity</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">The Pope was first taken to Savona, on the Italian coast.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">There, and later at Fontainebleau in France, he was kept under constant surveillance. His correspondence was censored. His cardinals were scattered. He was isolated, pressured, and worn down over years.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Napoleon believed that time, loneliness, and exhaustion would succeed where force had failed.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">In 1813, under intense psychological pressure, Pius VII signed the Concordat of Fontainebleau. It was a document that effectively surrendered much of papal authority over the Church to the emperor.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">But the victory was short-lived.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Once removed from direct pressure, the Pope reconsidered. Drawing on his conscience and the principles of canon law, he formally retracted his consent, declaring the agreement invalid because it had been signed under coercion.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">This act established a lasting principle: agreements extracted by force have no moral or legal authority.</p>
+                </div>
+
+                <div class="section" data-section="7">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Return</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">History soon turned against Napoleon.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Military defeats mounted. His empire began to collapse.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">In 1814, with Allied armies closing in, Napoleon released the Pope.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Pius VII returned to Rome to scenes of immense public celebration. A man who had been humiliated and imprisoned now returned as a moral victor.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">At the Congress of Vienna in 1815, the Papal States were restored.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">Napoleon, meanwhile, would end his days in exile.</p>
+                </div>
+
+                <div class="section" data-section="8">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Aftermath</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">Perhaps the most remarkable part of this story comes after Napoleon's defeat.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Pius VII intervened to protect Napoleon's family. He offered refuge in Rome to some of the very people who had imprisoned him.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">There was no revenge. No triumphalism. Only forgiveness.</p>
+                    <p class="text-slate-700 leading-relaxed mb-6">This act of clemency transformed the Pope's suffering into something greater than politics—it became a moral witness.</p>
+                </div>
+
+                <div class="section" data-section="9">
+                    <h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">The Lesson</h2>
+                    <p class="text-slate-700 leading-relaxed mb-4">The arrest of Pope Pius VII revealed something profound.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">It showed the limits of political power over spiritual authority. It demonstrated that the Church, though defenseless in worldly terms, could resist absolutism through conscience and endurance.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Napoleon could command armies—but he could not command belief.</p>
+                    <p class="text-slate-700 leading-relaxed mb-4">Or, as history proved:</p>
+                    <p class="text-slate-700 leading-relaxed mb-4 font-semibold italic">Napoleon could imprison the Pope's body, but not the Church's conscience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Full text for speech synthesis
+        const fullText = `In 1809, the most powerful man in Europe did something almost unthinkable.
+He sent soldiers into a palace at night, seized an elderly priest in white robes, and carried him away into captivity.
+
+That priest was the Pope.
+And the man who ordered his arrest was Napoleon Bonaparte.
+
+This is the story of how an emperor tried to bend the Church to his will—and failed.
+
+To understand why this happened, we must go back to the aftermath of the French Revolution.
+
+The Revolution had devastated the Catholic Church in France. Church lands were confiscated, monasteries dissolved, and thousands of priests were imprisoned, exiled, or executed. The old alliance between throne and altar had collapsed, and relations with Rome were broken entirely.
+
+When Napoleon rose to power, he was not a religious man in any deep sense.
+But he was intensely pragmatic.
+
+He understood something crucial: a nation at war with its own religion could never be stable.
+
+That is why, in 1801, Napoleon—then First Consul—reached an agreement with Pope Pius VII known as the Concordat of 1801.
+
+The Concordat restored Catholic worship in France, recognized Catholicism as the religion of the majority, and allowed churches to reopen. In return, the Pope accepted that bishops would be nominated by the French state and that confiscated Church lands would not be returned.
+
+It was a compromise—uneasy, imperfect, but effective.
+
+For a time, Church and state coexisted in cautious cooperation.
+
+Everything changed when Napoleon crowned himself Emperor in 1804.
+
+With the imperial crown came imperial expectations. Napoleon no longer wanted cooperation—he wanted obedience.
+
+He increasingly interfered in Church affairs, delaying or blocking episcopal appointments unless bishops swore loyalty to him. He treated Church officials as civil servants of the state, not shepherds of souls.
+
+Napoleon also expected the Pope to support his political and military ambitions, especially his economic war against Britain—the Continental System.
+
+The Papal States, which stretched across central Italy, were strategically important. Napoleon demanded that they join his blockade of Britain.
+
+Pius VII refused.
+
+Not because he loved Britain—but because he believed the Church must remain politically neutral and spiritually independent.
+
+This refusal marked the beginning of open conflict.
+
+In 1808, French troops marched into Rome.
+
+A year later, in 1809, Napoleon went further. He formally annexed the Papal States to the French Empire, declaring that the Pope's temporal rule was finished.
+
+For centuries, popes had ruled territory not for power, but to guarantee their independence from kings and emperors.
+
+Now that independence was gone.
+
+In response, Pius VII issued a papal bull called Quum memoranda.
+It excommunicated those responsible for violating the sovereignty of the Church.
+
+Napoleon was not named directly—but everyone understood who it was aimed at.
+
+The die was cast.
+
+On the night of July 5th to 6th, 1809, French soldiers entered the Quirinal Palace in Rome.
+
+They confronted the Pope and demanded that he renounce his claims to sovereignty.
+
+Pius VII refused.
+
+Calmly, quietly, he accepted arrest rather than submission.
+
+He was taken from Rome under cover of darkness—an aging man, separated from his advisors, uncertain if he would ever return.
+
+It was one of the most dramatic arrests in Church history.
+
+The Pope was first taken to Savona, on the Italian coast.
+
+There, and later at Fontainebleau in France, he was kept under constant surveillance. His correspondence was censored. His cardinals were scattered. He was isolated, pressured, and worn down over years.
+
+Napoleon believed that time, loneliness, and exhaustion would succeed where force had failed.
+
+In 1813, under intense psychological pressure, Pius VII signed the Concordat of Fontainebleau.
+
+It was a document that effectively surrendered much of papal authority over the Church to the emperor.
+
+But the victory was short-lived.
+
+Once removed from direct pressure, the Pope reconsidered. Drawing on his conscience and the principles of canon law, he formally retracted his consent, declaring the agreement invalid because it had been signed under coercion.
+
+This act established a lasting principle: agreements extracted by force have no moral or legal authority.
+
+History soon turned against Napoleon.
+
+Military defeats mounted. His empire began to collapse.
+
+In 1814, with Allied armies closing in, Napoleon released the Pope.
+
+Pius VII returned to Rome to scenes of immense public celebration. A man who had been humiliated and imprisoned now returned as a moral victor.
+
+At the Congress of Vienna in 1815, the Papal States were restored.
+
+Napoleon, meanwhile, would end his days in exile.
+
+Perhaps the most remarkable part of this story comes after Napoleon's defeat.
+
+Pius VII intervened to protect Napoleon's family. He offered refuge in Rome to some of the very people who had imprisoned him.
+
+There was no revenge. No triumphalism.
+
+Only forgiveness.
+
+This act of clemency transformed the Pope's suffering into something greater than politics—it became a moral witness.
+
+The arrest of Pope Pius VII revealed something profound.
+
+It showed the limits of political power over spiritual authority. It demonstrated that the Church, though defenseless in worldly terms, could resist absolutism through conscience and endurance.
+
+Napoleon could command armies—but he could not command belief.
+
+Or, as history proved:
+
+Napoleon could imprison the Pope's body, but not the Church's conscience.`;
+
+        // Initialize speech synthesis
+        let synth = window.speechSynthesis;
+        let utterance = null;
+        let voices = [];
+        let currentlyHighlighted = null;
+
+        // DOM elements
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const rateSlider = document.getElementById('rateSlider');
+        const rateValue = document.getElementById('rateValue');
+        const progressBar = document.getElementById('progressBar');
+        const currentSection = document.getElementById('currentSection');
+        const totalSections = document.getElementById('totalSections');
+        const sections = document.querySelectorAll('.section');
+
+        // Set total sections
+        totalSections.textContent = `Total sections: ${sections.length}`;
+
+        // Load voices
+        function populateVoiceList() {
+            voices = synth.getVoices();
+            voiceSelect.innerHTML = '';
+            
+            // Prioritize English voices
+            const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+            const otherVoices = voices.filter(voice => !voice.lang.startsWith('en'));
+            
+            [...englishVoices, ...otherVoices].forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.textContent = `${voice.name} (${voice.lang})`;
+                option.value = index;
+                if (voice.default) {
+                    option.textContent += ' — DEFAULT';
+                }
+                voiceSelect.appendChild(option);
+            });
+            
+            // Select first English voice or default
+            const defaultVoice = voices.findIndex(v => v.default);
+            const firstEnglish = voices.findIndex(v => v.lang.startsWith('en'));
+            voiceSelect.selectedIndex = firstEnglish !== -1 ? firstEnglish : defaultVoice;
+        }
+
+        populateVoiceList();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+        // Update rate display
+        rateSlider.addEventListener('input', () => {
+            rateValue.textContent = `${rateSlider.value}x`;
+        });
+
+        // Highlight current section being read
+        function highlightSection(sectionNumber) {
+            sections.forEach(section => {
+                section.classList.remove('bg-yellow-50', 'border-l-4', 'border-yellow-400', 'pl-4');
+            });
+            
+            if (sectionNumber <= sections.length) {
+                const currentSectionElement = sections[sectionNumber - 1];
+                currentSectionElement.classList.add('bg-yellow-50', 'border-l-4', 'border-yellow-400', 'pl-4');
+                currentSectionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                currentSection.textContent = `Section ${sectionNumber} of ${sections.length}`;
+                progressBar.style.width = `${(sectionNumber / sections.length) * 100}%`;
+            }
+        }
+
+        // Play button
+        playBtn.addEventListener('click', () => {
+            if (synth.paused) {
+                synth.resume();
+                playBtn.classList.add('hidden');
+                pauseBtn.classList.remove('hidden');
+                return;
+            }
+
+            // Cancel any existing speech
+            synth.cancel();
+
+            utterance = new SpeechSynthesisUtterance(fullText);
+            
+            // Set voice
+            const selectedVoice = voices[voiceSelect.value];
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            
+            // Set rate
+            utterance.rate = parseFloat(rateSlider.value);
+            
+            // Set other properties
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            // Track progress through sections
+            let currentSectionIndex = 1;
+            let sectionTexts = Array.from(sections).map(s => s.innerText);
+            let accumulatedLength = 0;
+
+            utterance.onboundary = (event) => {
+                if (event.name === 'word') {
+                    // Simple progress tracking
+                    const progress = (event.charIndex / fullText.length) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    // Determine current section
+                    let charCount = event.charIndex;
+                    for (let i = 0; i < sectionTexts.length; i++) {
+                        if (charCount < accumulatedLength + sectionTexts[i].length) {
+                            if (currentSectionIndex !== i + 1) {
+                                currentSectionIndex = i + 1;
+                                highlightSection(currentSectionIndex);
+                            }
+                            break;
+                        }
+                        accumulatedLength += sectionTexts[i].length;
+                    }
+                }
+            };
+
+            utterance.onstart = () => {
+                playBtn.classList.add('hidden');
+                pauseBtn.classList.remove('hidden');
+                highlightSection(1);
+            };
+
+            utterance.onend = () => {
+                pauseBtn.classList.add('hidden');
+                playBtn.classList.remove('hidden');
+                progressBar.style.width = '100%';
+                currentSection.textContent = 'Completed';
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                    currentSection.textContent = 'Not started';
+                    sections.forEach(section => {
+                        section.classList.remove('bg-yellow-50', 'border-l-4', 'border-yellow-400', 'pl-4');
+                    });
+                }, 2000);
+            };
+
+            synth.speak(utterance);
+        });
+
+        // Pause button
+        pauseBtn.addEventListener('click', () => {
+            if (synth.speaking && !synth.paused) {
+                synth.pause();
+                pauseBtn.classList.add('hidden');
+                playBtn.classList.remove('hidden');
+            }
+        });
+
+        // Stop button
+        stopBtn.addEventListener('click', () => {
+            synth.cancel();
+            pauseBtn.classList.add('hidden');
+            playBtn.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            currentSection.textContent = 'Not started';
+            sections.forEach(section => {
+                section.classList.remove('bg-yellow-50', 'border-l-4', 'border-yellow-400', 'pl-4');
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (synth.speaking && !synth.paused) {
+                    pauseBtn.click();
+                } else {
+                    playBtn.click();
+                }
+            } else if (e.code === 'Escape') {
+                stopBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
